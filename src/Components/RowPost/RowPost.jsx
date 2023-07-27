@@ -9,11 +9,20 @@ function RowPost(props) {
     const [urlId, setUrlId] = useState([]);
 
     useEffect(()=>{
+        console.log('hello world');
         axios.get(baseUrl+props.url).then((response)=>{
-            console.log(response.data);
+            // console.log(response.data);
             setMovies(response.data.results);
         }).catch(err=> alert(err));
-    },[])
+    },[props.url]);
+
+    
+
+    useEffect(()=>{
+        if(props.active !== props.title){
+            setUrlId([]);
+        }
+    },[props])
 
     const opts={
         height: '390',
@@ -21,13 +30,13 @@ function RowPost(props) {
         playerVars:{
             autoplay: 1,
         }
-    }
+    };
 
     const handleMovie =(id)=>{
         axios.get(`${baseUrl}/movie/${id}/videos?api_key=${API_KEY}`).then((response)=>{
-            setUrlId([])
+            props.changeStatus(props.title);
             if(response.data.results.length!==0){
-                if(urlId.key == response.data.results[0].key){
+                if(urlId.key === response.data.results[0].key){
                     setUrlId([])
                 } else {
                     setUrlId(response.data.results[0])

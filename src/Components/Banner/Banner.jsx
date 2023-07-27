@@ -8,6 +8,7 @@ import './Banner.css';  //imported stylesheet
 function Banner() {
     const [movie, setMovie] = useState([])
     useEffect(() => {
+        console.log('ita banner');
         axios.get(`https://api.themoviedb.org/3/trending/movie/day?language=en&api_key=${API_KEY}`).then(async (response) => {
             setMovie(response.data.results[0])
             // console.log(response.data.results[0]);
