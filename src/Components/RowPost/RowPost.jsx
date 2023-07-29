@@ -58,7 +58,7 @@ function RowPost(props) {
                 )}
             </div>
             {
-                urlId && urlId.key ? <Youtube opts={opts} videoId={urlId.key} /> : null
+                urlId && urlId.key ? <div className='youtubeContainer'><Youtube opts={opts} videoId={urlId.key} /></div> : null
             }
         </div>
     )
