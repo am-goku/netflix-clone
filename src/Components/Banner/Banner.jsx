@@ -7,6 +7,7 @@ import './Banner.css';  //imported stylesheet
 
 function Banner() {
     const [movie, setMovie] = useState([])
+    const [bannerImage, setBannerImage] = useState('')
     useEffect(() => {
         console.log('ita banner');
         axios.get(`https://api.themoviedb.org/3/trending/movie/day?language=en&api_key=${API_KEY}`).then(async (response) => {
@@ -21,8 +22,13 @@ function Banner() {
         })
     }, [])
 
+    //constructor for banner image
+    useEffect(()=>{
+        setBannerImage(window.innerWidth >= 578 ? imageUrl + movie.backdrop_path : imageUrl + movie.poster_path)
+    },[movie])
+
     return (
-        <div className='banner' style={{ backgroundImage: `url(${movie ? imageUrl + movie.backdrop_path : ''})` }}>
+        <div className='banner' style={{backgroundImage:`url(${bannerImage})`}}>
             <div className='content'>
                 <div className="innerContent">
                     <h1 className='title'>{movie ? movie.title : ''}</h1>
